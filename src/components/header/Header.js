@@ -2,12 +2,18 @@ import React from 'react';
 import Logo from './Logo';
 import Nav from './Nav';
 import UserMenu from './UserMenu';
+import mainLogo from '../../data/react-logo.png';
+import userLogoDefault from '../../data/userLogo.png';
 
 const Header = () => (
   <header>
-    <Logo />
+    <Logo srcLogo={mainLogo} logoWidth="150px" logoHeight="150px" />
     <Nav />
-    <UserMenu />
+    <UserMenu
+      srcUserLogo={userLogoDefault}
+      logoWidth="35px"
+      logoHeight="35px"
+    />
   </header>
 );
 

@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import MenuItem from './cardMenuItem';
-import menu from '../../data/menu.json';
 import Filter from './filterInput';
+import menuData from '../../data/menu.json';
 
-const MenuList = () => (
-  <div>
-    <h1>MENU LIST</h1>
-    <Filter />
-    <ul>
-      {menu.map(({ id, name, description, image, price, ingredients }) => (
-        <MenuItem
-          id={id}
-          name={name}
-          description={description}
-          image={image}
-          price={price}
-          ingredients={ingredients}
-        />
-      ))}
-    </ul>
-  </div>
-);
+const filterMenuItems = (filter, menuList) =>
+  menuList.filter(item =>
+    item.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+
+class MenuList extends Component {
+  state = {
+    menuList: [...menuData],
+    filter: '',
+  };
+
+  handleChange = ({ target }) => {
+    const { value } = target;
+    this.setState({ filter: value });
+  };
+
+  render() {
+    const { filter, menuList } = this.state;
+    const filteredMenuItems = filterMenuItems(filter, menuList);
+    return (
+      <div>
+        <h1>MENU LIST</h1>
+        <Filter value={filter} onChange={this.handleChange} />
+        {filter.length === 0 ? (
+          <MenuItem dataObj={menuList} imageWidth="250px" imageHeight="250px" />
+        ) : (
+          <MenuItem dataObj={filteredMenuItems} />
+        )}
+      </div>
+    );
+  }
+}
 
 export default MenuList;

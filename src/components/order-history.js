@@ -1,7 +1,6 @@
 import React from 'react';
-import dataOrderHistory from '../data/order-history.json';
 
-const OrderHistory = () => (
+const OrderHistory = ({ dataOrderHistory }) => (
   <tbody>
     <h1>ORDER HISTORY</h1>
     <table>
@@ -9,12 +8,12 @@ const OrderHistory = () => (
         <th> Date </th> <th> Price </th> <th> Delivery address </th>
         <th> Rating </th>
       </tr>
-      {dataOrderHistory.map(item => (
-        <tr key={item.id}>
-          <td>{item.date}</td>
-          <td>{item.price}</td>
-          <td>{item.address}</td>
-          <td>{item.rating}</td>
+      {dataOrderHistory.map(({ id, date, price, address, rating }) => (
+        <tr key={id}>
+          <td>{date}</td>
+          <td>{price}</td>
+          <td>{address}</td>
+          <td>{rating}</td>
         </tr>
       ))}
     </table>

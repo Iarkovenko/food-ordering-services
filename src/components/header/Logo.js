@@ -1,14 +1,14 @@
 import React from 'react';
 
-const Logo = () => (
+const Logo = ({
+  srcLogo,
+  logoWidth = '25px',
+  logoHeight = '25px',
+  logoAlt = 'mainLogo',
+}) => (
   <div>
     <a href="/">
-      <img
-        src="react-logo.png"
-        width="50px"
-        height="50px"
-        alt="main logo header"
-      />
+      <img src={srcLogo} width={logoWidth} height={logoHeight} alt={logoAlt} />
     </a>
   </div>
 );

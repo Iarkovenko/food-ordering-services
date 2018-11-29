@@ -1,10 +1,16 @@
 import React from 'react';
 
-const UserMenu = () => (
+const UserMenu = ({
+  logoWidth = '15px',
+  logoHeight = '15px',
+  alt = 'user logo',
+  srcUserLogo,
+  userLogin = 'Bob Ross',
+}) => (
   <div>
     <div>
-      <img alt="user logo" src="userLogo.png" width="25px" height="25px" />
-      <span>Bob Ross</span>
+      <img alt={alt} src={srcUserLogo} width={logoWidth} height={logoHeight} />
+      <span>{userLogin}</span>
     </div>
   </div>
 );
