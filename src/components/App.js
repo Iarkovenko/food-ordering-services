@@ -1,15 +1,30 @@
-import React, { Fragment } from 'react';
-import Header from './header/Header';
-// import OrderHistory from './order-history';
-// import MenuList from './menu-card/MenuList';
-// import SignUp from './authform/signup';
-// import SignIn from './authform/signin';
-// import dataOrderHistory from '../data/order-history.json';
+import React, { Fragment, Component } from 'react';
+import Modal from './Modal';
 
-const App = () => (
-  <Fragment>
-    <Header />
-  </Fragment>
-);
+class App extends Component {
+  state = {
+    isModalOpen: false,
+  };
+
+  handleOpenModal = () => {
+    this.setState({ isModalOpen: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isModalOpen: false });
+  };
+
+  render() {
+    const { isModalOpen } = this.state;
+    return (
+      <Fragment>
+        <button type="button" onClick={this.handleOpenModal}>
+          Open
+        </button>
+        {isModalOpen && <Modal onClose={this.handleCloseModal} />}
+      </Fragment>
+    );
+  }
+}
 
 export default App;
