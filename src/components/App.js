@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import * as API from './services';
 import OrderHistoryTable from './tmplOrderHistory';
+import Form from './Form';
 
 export default class App extends Component {
   state = {
@@ -37,6 +38,15 @@ export default class App extends Component {
     this.setState({ isModalOpen: false, moreItemInfoById: '' });
   };
 
+  handlePostData = item => {
+    API.addItem(item).then(res => {
+      if (!res.status === 201) return;
+      this.setState(prevState => ({
+        orderHistory: prevState.orderHistory + res.data,
+      }));
+    });
+  };
+
   render() {
     const {
       orderHistory,
@@ -57,6 +67,9 @@ export default class App extends Component {
             isLoading={isLoading}
           />
         )}
+        <Fragment>
+          <Form postData={this.handlePostData} />
+        </Fragment>
       </Fragment>
     );
   }

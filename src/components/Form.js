@@ -1,27 +1,85 @@
-// import react from 'react';
+import React, { Component } from 'react';
+import moment from 'moment';
 
-// const Form = () => (
-//   <form>
-//     <p>Delivery adress</p>
-//     <input placeholder="Enter your delivery adress" />
+class Form extends Component {
+  state = {
+    address: '',
+    price: '',
+    raiting: '',
+  };
 
-//     <p>Price</p>
-//     <input placeholder="Enter Price" />
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  };
 
-//     <p>Raiting</p>
-//     <select>
-//       <option value="1" />
-//       <option value="2" />
-//       <option value="3" />
-//       <option value="4" />
-//       <option value="5" />
-//       <option value="6" />
-//       <option value="7" />
-//       <option value="8" />
-//       <option value="9" />
-//       <option value="10" />
-//     </select>
-//   </form>
-// );
+  handleGetData = (e, address, price, raiting) => {
+    e.preventDefault();
+    const { postData } = this.props;
+    const dataToPost = {
+      address,
+      price,
+      raiting,
+      date: moment().format('M/D/YYYY'),
+    };
+    postData(dataToPost);
+  };
 
-// export default Form;
+  render() {
+    const { address, price, raiting } = this.state;
+    // const {postData} = this.props;
+    return (
+      <form>
+        <p>Delivery adress</p>
+        <input
+          name="address"
+          type="text"
+          value={address}
+          onChange={this.handleChange}
+          placeholder="Enter your delivery adress"
+          require
+        />
+
+        <p>Price</p>
+        <input
+          name="price"
+          type="number"
+          value={price}
+          onChange={this.handleChange}
+          placeholder="Enter Price"
+          require
+        />
+
+        <p>Raiting</p>
+        <select
+          name="raiting"
+          value={raiting}
+          onChange={this.handleChange}
+          require
+        >
+          <option value="" selected disabled>
+            ...
+          </option>
+          <option value="1">1</option>
+          <option value="2"> 2</option>
+          <option value="3"> 3</option>
+          <option value="4"> 4</option>
+          <option value="5"> 5</option>
+          <option value="6"> 6</option>
+          <option value="7"> 7</option>
+          <option value="8"> 8</option>
+          <option value="9"> 9</option>
+          <option value="10">10 </option>
+        </select>
+        <button
+          type="button"
+          onClick={e => this.handleGetData(e, address, price, raiting)}
+        >
+          POST
+        </button>
+      </form>
+    );
+  }
+}
+
+export default Form;

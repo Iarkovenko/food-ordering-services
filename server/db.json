@@ -1,36 +1,25 @@
 {
   "order-history": [
     {
-      "id": 1,
-      "date": "5/15/2018",
-      "price": "159.00",
-      "address": "262 Jovan Roads",
-      "rating": 4,
-      "description": "Hello! It's Modal Window 2"
+      "address": "123123",
+      "price": "444",
+      "raiting": "3",
+      "date": "12/3/2018",
+      "id": 1
     },
     {
-      "id": 2,
-      "date": "10/1/2018",
-      "price": "710.00",
-      "address": "331 Mills Mountains",
-      "rating": 9,
-      "description": "Hello! It's Modal Window 3"
+      "address": "123123",
+      "price": "444",
+      "raiting": "3",
+      "date": "12/3/2018",
+      "id": 2
     },
     {
-      "id": 4,
-      "date": "9/22/2018",
-      "price": "703.00",
-      "address": "0700 Furman Trail",
-      "rating": 6,
-      "description": "Hello! It's Modal Window 5"
-    },
-    {
-      "id": 5,
-      "date": "6/14/2018",
-      "price": "887.00",
-      "address": "24880 Margaret Harbors",
-      "rating": 2,
-      "description": "Hello! It's Modal Window 6"
+      "address": "123123",
+      "price": "444",
+      "raiting": "3",
+      "date": "12/3/2018",
+      "id": 3
     }
   ]
 }

@@ -10,7 +10,6 @@ const getItemById = id =>
 const deleteItem = id =>
   axios.delete(`${BASE_URL}/${id}`).then(response => response.status === 200);
 
-const addItem = item =>
-  axios.post(BASE_URL, item).then(response => response.data);
+const addItem = item => axios.post(BASE_URL, item).then(response => response);
 
 export { getAllItems, getItemById, deleteItem, addItem };
