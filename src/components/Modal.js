@@ -23,39 +23,36 @@ export default class Modal extends Component {
   containerRef = createRef();
 
   componentDidMount = () => {
-    this.containerRef.current.addEventListener('click', this.handleWindowClick);
-    window.addEventListener('keydown', this.handleWindowClick);
+    window.addEventListener('keydown', this.handleWindowKeyDown);
   };
 
   componentWillUnmount = () => {
-    this.containerRef.current.removeEventListener(
-      'click',
-      this.handleWindowClick,
-    );
-    window.removeEventListener('keydown', this.handleWindowClick);
+    window.removeEventListener('keydown', this.handleWindowKeyDown);
   };
 
-  handleWindowClick = e => {
+  handleClickBackdrop = e => {
     const { onClose } = this.props;
-    const isTargetInsideContainer = this.containerRef.current.children[0].contains(
-      e.target,
-    );
-    if (e.keyCode === 27 || !isTargetInsideContainer) {
-      onClose();
-    }
+    if (e.target !== this.containerRef.current) return;
+    onClose();
+  };
+
+  handleWindowKeyDown = e => {
+    if (e.code !== 'Escape') return;
+    const { onClose } = this.props;
+    onClose();
   };
 
   render() {
-    const { onClose } = this.props;
+    const { onClose, children } = this.props;
     return (
-      <div style={styles.backdrop} ref={this.containerRef}>
+      <div
+        style={styles.backdrop}
+        ref={this.containerRef}
+        onClick={this.handleClickBackdrop}
+        onKeyDown={() => {}}
+      >
         <div style={styles.modal}>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil
-            ipsum obcaecati maiores ipsam harum distinctio quia, soluta
-            voluptatibus iste deserunt consectetur totam quas quidem, aliquid
-            voluptatem nisi, nobis expedita quis?
-          </p>
+          {children}
           <button type="button" onClick={onClose}>
             Close
           </button>
