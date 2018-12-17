@@ -14,6 +14,11 @@
         "Бекон",
         "Твердый сыр",
         "Зеленый лук"
+      ],
+      "comments": [
+        {
+          "comments": "1233asdasd"
+        }
       ]
     },
     {
@@ -39,7 +44,13 @@
       "image": "https://s1.eda.ru/StaticContent/Photos/121114213720/151024152626/p_O.png",
       "price": 100,
       "category": "soup",
-      "ingredients": ["Тыква", "Петрушка", "Сливки", "Бренди", "Куриный бульон"]
+      "ingredients": [
+        "Тыква",
+        "Петрушка",
+        "Сливки",
+        "Бренди",
+        "Куриный бульон"
+      ]
     },
     {
       "id": 4,
@@ -123,10 +134,25 @@
     }
   ],
   "categories": [
-    { "id": 0, "name": "all"},
-    { "id": 1, "name": "soup" },
-    { "id": 2, "name": "dessert" },
-    { "id": 3, "name": "salad" },
-    { "id": 4, "name": "main course" }
+    {
+      "id": 0,
+      "name": "all"
+    },
+    {
+      "id": 1,
+      "name": "soup"
+    },
+    {
+      "id": 2,
+      "name": "dessert"
+    },
+    {
+      "id": 3,
+      "name": "salad"
+    },
+    {
+      "id": 4,
+      "name": "main course"
+    }
   ]
 }

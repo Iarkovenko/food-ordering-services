@@ -1,18 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import navRoute from '../configs/main-nav';
+
 const Nav = () => (
   <ul>
-    <li>
-      <Link exact to="/">
-        Главная
-      </Link>
-    </li>
-    <li>
-      <Link exact to="/menu">
-        Меню
-      </Link>
-    </li>
+    {navRoute.map(route => (
+      <li key={route.name}>
+        <Link to={route.path}>{route.name}</Link>
+      </li>
+    ))}
   </ul>
 );
 

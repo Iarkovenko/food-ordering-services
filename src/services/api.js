@@ -18,6 +18,14 @@ export const getMenuItemById = async id => {
 };
 
 export const getMenuItemsWithCategory = async category => {
+  if (category === 'all') {
+    return getAllMenuItems();
+  }
   const response = await axios.get(`/menu?category=${category}`);
   return response.data;
+};
+
+export const postMenuItem = async item => {
+  const response = await axios.post(`/menu`, item);
+  return response;
 };
