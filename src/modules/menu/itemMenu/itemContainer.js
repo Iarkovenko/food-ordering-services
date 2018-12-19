@@ -34,7 +34,7 @@ class ItemPage extends Component {
     }
 
     return history.push({
-      pathname: '/articles',
+      pathname: '/menu',
       search: `?category=${category}`,
     });
   };

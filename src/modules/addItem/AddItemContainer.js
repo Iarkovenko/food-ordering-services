@@ -23,7 +23,9 @@ class AddItem extends Component {
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-    this.setState({ newItem: { [name]: value } });
+    this.setState(prevState => ({
+      newItem: { ...prevState.newItem, [name]: value },
+    }));
   };
 
   handlePostItem = e => {
@@ -35,7 +37,6 @@ class AddItem extends Component {
       if (res.status !== 201) return;
       history.replace({
         pathname: '/menu',
-        search: 'category=all',
       });
     });
   };

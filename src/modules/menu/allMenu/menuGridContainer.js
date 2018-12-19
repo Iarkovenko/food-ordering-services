@@ -18,14 +18,9 @@ class MenuPage extends Component {
 
   componentDidMount() {
     API.getCategories().then(data => this.setState({ categories: data }));
-    API.getAllMenuItems().then(data => this.setState({ items: data }));
     const category = getCategoryFromProps(this.props);
     if (!category) {
-      const { history, location } = this.props;
-      return history.replace({
-        pathname: location.pathname,
-        search: 'category=all',
-      });
+      return API.getAllMenuItems().then(data => this.setState({ items: data }));
     }
     return this.fetchArticles(category).then(data =>
       this.setState({ items: data }),
@@ -33,20 +28,16 @@ class MenuPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const category = getCategoryFromProps(this.props);
-    if (!category) {
-      const { history, location } = this.props;
-      history.replace({
-        pathname: location.pathname,
-        search: 'category=all',
-      });
-    }
     const prevCategory = getCategoryFromProps(prevProps);
     const nextCategory = getCategoryFromProps(this.props);
     if (prevCategory === nextCategory) return;
     this.fetchArticles(nextCategory).then(data =>
       this.setState({ items: data }),
     );
+    const category = getCategoryFromProps(this.props);
+    if (!category) {
+      API.getAllMenuItems().then(data => this.setState({ items: data }));
+    }
   }
 
   fetchArticles = category => API.getMenuItemsWithCategory(category);
@@ -64,7 +55,6 @@ class MenuPage extends Component {
     const { history, location } = this.props;
     return history.replace({
       pathname: location.pathname,
-      search: 'category=all',
     });
   };
 

@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import navRoute from '../configs/main-nav';
-
-const Nav = () => (
+const Nav = ({ routes }) => (
   <ul>
-    {navRoute.map(route => (
+    {routes.map(route => (
       <li key={route.name}>
         <Link to={route.path}>{route.name}</Link>
       </li>

@@ -8,10 +8,11 @@ import ItemPage from '../pages/ItemPage';
 import AddPage from '../pages/AddPage';
 
 import routes from '../configs/routes';
+import navRoute from '../configs/main-nav';
 
 const App = () => (
   <>
-    <Nav />
+    <Nav routes={navRoute} />
     <Switch>
       <Route exact path={routes.MAIN} component={MainPage} />
       <Route exact path={routes.MENU} component={MenuPage} />

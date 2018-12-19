@@ -131,27 +131,47 @@
         "Легкий соевый соус",
         "Кунжутное масло"
       ]
+    },
+    {
+      "name": "asdasdasd",
+      "description": "asdasdasd",
+      "category": "salad",
+      "image": "asdasd",
+      "price": "123123",
+      "id": 9
+    },
+    {
+      "name": "asd",
+      "description": "asd",
+      "category": "salad",
+      "image": "asd",
+      "price": "123123",
+      "id": 10
+    },
+    {
+      "name": "sfddsf",
+      "description": "fdsdsffds",
+      "category": "dessert",
+      "image": "sdfsdf",
+      "price": "123123",
+      "id": 11
     }
   ],
   "categories": [
     {
       "id": 0,
-      "name": "all"
-    },
-    {
-      "id": 1,
       "name": "soup"
     },
     {
-      "id": 2,
+      "id": 1,
       "name": "dessert"
     },
     {
-      "id": 3,
+      "id": 2,
       "name": "salad"
     },
     {
-      "id": 4,
+      "id": 3,
       "name": "main course"
     }
   ]
