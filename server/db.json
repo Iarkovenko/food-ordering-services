@@ -14,11 +14,6 @@
         "Бекон",
         "Твердый сыр",
         "Зеленый лук"
-      ],
-      "comments": [
-        {
-          "comments": "1233asdasd"
-        }
       ]
     },
     {
@@ -131,30 +126,6 @@
         "Легкий соевый соус",
         "Кунжутное масло"
       ]
-    },
-    {
-      "name": "asdasdasd",
-      "description": "asdasdasd",
-      "category": "salad",
-      "image": "asdasd",
-      "price": "123123",
-      "id": 9
-    },
-    {
-      "name": "asd",
-      "description": "asd",
-      "category": "salad",
-      "image": "asd",
-      "price": "123123",
-      "id": 10
-    },
-    {
-      "name": "sfddsf",
-      "description": "fdsdsffds",
-      "category": "dessert",
-      "image": "sdfsdf",
-      "price": "123123",
-      "id": 11
     }
   ],
   "categories": [

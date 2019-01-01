@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const MenuList = ({ items, match, location }) => (
+const MenuList = ({ items, match, location, handleDelete, handleEditItem }) => (
   <>
     <Link
       exact
@@ -27,6 +27,14 @@ const MenuList = ({ items, match, location }) => (
           <img src={image} width="150px" height="100px" alt={category} />
           <p>
             <b>{price} UAH</b>
+          </p>
+          <p>
+            <button type="button" onClick={handleEditItem}>
+              Изменить
+            </button>
+            <button type="button" onClick={() => handleDelete(id)}>
+              Удалить
+            </button>
           </p>
         </li>
       ))}
