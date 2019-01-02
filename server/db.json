@@ -5,7 +5,7 @@
       "name": "Картофель, запеченный в мундире",
       "description": "Ароматный, сытный, шипящий домашний картофель, фаршированный сметанно-беконной начинкой.",
       "image": "https://s1.eda.ru/StaticContent/Photos/140812180013/140820212258/p_O.jpg",
-      "price": 100,
+      "price": "10",
       "category": "main course",
       "ingredients": [
         "Картофель",

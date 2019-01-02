@@ -1,4 +1,7 @@
-import React, { PureComponent, createRef } from 'react';
+import React, { Component, createRef } from 'react';
+import { connect } from 'react-redux';
+
+import menuOperation from '../../redux/menuOperation';
 
 const styles = {
   backdrop: {
@@ -13,17 +16,23 @@ const styles = {
     alignItems: 'center',
   },
   modal: {
-    maxWidth: 600,
+    minWidth: 600,
     minHeight: 300,
     backgroundColor: '#fff',
     padding: 16,
   },
 };
 
-export default class Modal extends PureComponent {
+class Modal extends Component {
   containerRef = createRef();
 
+  state = {};
+
   componentDidMount = () => {
+    const { fetchCurrentData, id } = this.props;
+    fetchCurrentData(id).then(res => {
+      this.setState({ ...res });
+    });
     window.addEventListener('keydown', this.handleWindowKeyDown);
   };
 
@@ -37,15 +46,38 @@ export default class Modal extends PureComponent {
     switchModalWindow();
   };
 
-  // eslint-disable-next-line consistent-return
+  handleCloseModal = () => {
+    const { switchModalWindow } = this.props;
+    switchModalWindow();
+  };
+
   handleWindowKeyDown = e => {
-    if (e.code !== 'Escape') {
-      const b = '';
-      return b;
-    }
+    const { switchModalWindow } = this.props;
+    if (e.code !== 'Escape') return;
+    switchModalWindow();
+  };
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleUpdateItem = e => {
+    e.preventDefault();
+    const { updateMenuItem, switchModalWindow } = this.props;
+    const updateItem = { ...this.state };
+    updateMenuItem(updateItem).then(res => {
+      if (res.status !== 200) return;
+      switchModalWindow();
+    });
   };
 
   render() {
+    const { name, description, category, image, price } = this.state;
+    const { categories } = this.props;
+
     return (
       <div
         style={styles.backdrop}
@@ -54,15 +86,68 @@ export default class Modal extends PureComponent {
         onKeyDown={() => {}}
       >
         <div style={styles.modal}>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil
-            ipsum obcaecati maiores ipsam harum distinctio quia, soluta
-            voluptatibus iste deserunt consectetur totam quas quidem, aliquid
-            voluptatem nisi, nobis expedita quis?
-          </p>
-          <button type="button">Close</button>
+          <form onSubmit={this.handleUpdateItem}>
+            <h1>Редактировать меню</h1>
+            <p>Имя</p>
+            <input
+              onChange={this.handleChange}
+              value={name}
+              type="text"
+              name="name"
+              placeholder="Name"
+              required
+            />
+            <textarea
+              onChange={this.handleChange}
+              value={description}
+              name="description"
+              placeholder="Description"
+              required
+            />
+            <select
+              onChange={this.handleChange}
+              value={category}
+              name="category"
+            >
+              {categories.map(o => (
+                <option key={o.id} value={o.name}>
+                  {o.name}
+                </option>
+              ))}
+            </select>
+            <input
+              onChange={this.handleChange}
+              value={image}
+              type="text"
+              name="image"
+              placeholder="img link"
+              required
+            />
+            <input
+              onChange={this.handleChange}
+              value={price}
+              type="number"
+              name="price"
+              placeholder="Price"
+              required
+            />
+            <button type="submit">Обновить</button>
+          </form>
+          <button type="button" onClick={this.handleCloseModal}>
+            Close
+          </button>
         </div>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = {
+  fetchCurrentData: menuOperation.fetchDataForModalWindow,
+  updateMenuItem: menuOperation.updateDataOfMenuItem,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Modal);

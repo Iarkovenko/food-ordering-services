@@ -4,6 +4,7 @@ const FETCH_REQUEST_CATEGORIES = 'menu_categoties_items/FETCH_REQUEST';
 const CHANGE_FILTER = 'menu/CHANGE_FILTER';
 const DELETE_ITEM = 'menu_item/DELETE_ITEM';
 const OPEN_MODAL_FLAG = 'modal_window/TOOGLE';
+const UPDATE_MENU_ITEM = 'menu_item_update/UPDATE_ITEM';
 
 export default {
   FETCH_REQUEST_MENU,
@@ -12,4 +13,5 @@ export default {
   CHANGE_FILTER,
   DELETE_ITEM,
   OPEN_MODAL_FLAG,
+  UPDATE_MENU_ITEM,
 };

@@ -31,3 +31,8 @@ export const deleteMenuItem = async id => {
   const response = await axios.delete(`/menu/${id}`);
   return response;
 };
+
+export const patchMenuItem = async item => {
+  const response = await axios.patch(`/menu/${item.id}`, item);
+  return response;
+};

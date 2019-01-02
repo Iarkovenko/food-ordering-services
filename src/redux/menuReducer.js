@@ -9,6 +9,9 @@ function itemsReducer(state = [], { type, payload }) {
     case types.DELETE_ITEM:
       return state.filter(item => item.id !== payload);
 
+    case types.UPDATE_MENU_ITEM:
+      return [...state, payload];
+
     default:
       return state;
   }

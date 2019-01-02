@@ -24,10 +24,16 @@ const toogleModalFlag = () => ({
   type: types.OPEN_MODAL_FLAG,
 });
 
+const updateItem = item => ({
+  type: types.UPDATE_MENU_ITEM,
+  payload: item,
+});
+
 export default {
   fetchMenu,
   fetchCategories,
   changeFilter,
   deleteItem,
   toogleModalFlag,
+  updateItem,
 };

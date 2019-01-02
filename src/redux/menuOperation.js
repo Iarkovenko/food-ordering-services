@@ -22,12 +22,18 @@ const handleDeleteItemById = id => dispatch => {
   });
 };
 
-const fetchDataForModalWindow = () => dispatch => {
+const toogleModalWindow = () => dispatch => {
   dispatch(actions.toogleModalFlag());
-  // API.getMenuItemById(id).then(res => {
-  //   dispatch(actions.toogleModalFlag(flag));
-  // })
 };
+
+const fetchDataForModalWindow = id => () => API.getMenuItemById(id);
+// wirite action for success fetch
+
+const updateDataOfMenuItem = item => dispatch =>
+  API.patchMenuItem(item).then(res => {
+    dispatch(actions.updateItem(item));
+    return res;
+  });
 
 export default {
   fetchMenuItems,
@@ -35,4 +41,6 @@ export default {
   fetchMenuItemsBySelected,
   handleDeleteItemById,
   fetchDataForModalWindow,
+  toogleModalWindow,
+  updateDataOfMenuItem,
 };

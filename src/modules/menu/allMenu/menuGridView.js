@@ -29,7 +29,7 @@ const MenuList = ({ items, match, location, handleDelete, handleEditItem }) => (
             <b>{price} UAH</b>
           </p>
           <p>
-            <button type="button" onClick={handleEditItem}>
+            <button type="button" onClick={() => handleEditItem(id)}>
               Изменить
             </button>
             <button type="button" onClick={() => handleDelete(id)}>

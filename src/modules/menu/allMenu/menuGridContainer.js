@@ -14,6 +14,8 @@ const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
 
 class MenuPage extends Component {
+  state = {};
+
   componentDidMount() {
     const {
       fetchMenuItems,
@@ -67,8 +69,9 @@ class MenuPage extends Component {
     handleDelete(id);
   };
 
-  handleOpenModal = () => {
+  handleOpenModal = id => {
     const { switchModalWindow } = this.props;
+    this.setState({ id });
     switchModalWindow();
   };
 
@@ -90,7 +93,7 @@ class MenuPage extends Component {
           handleDelete={this.handleDeleteItem}
           handleEditItem={this.handleOpenModal}
         />
-        {isModalOpen && <ModalWindow {...this.props} />}
+        {isModalOpen && <ModalWindow {...this.props} {...this.state} />}
       </>
     );
   }
@@ -104,7 +107,7 @@ const mapDispatchToProps = {
   fetchMenuItemsBySelected: menuOperation.fetchMenuItemsBySelected,
   changeFilter: actions.changeFilter,
   handleDelete: menuOperation.handleDeleteItemById,
-  switchModalWindow: menuOperation.fetchDataForModalWindow,
+  switchModalWindow: menuOperation.toogleModalWindow,
 };
 
 export default connect(
