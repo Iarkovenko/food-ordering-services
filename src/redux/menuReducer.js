@@ -10,7 +10,12 @@ function itemsReducer(state = [], { type, payload }) {
       return state.filter(item => item.id !== payload);
 
     case types.UPDATE_MENU_ITEM:
-      return [...state, payload];
+      return state.map(item => {
+        if (item.id === payload.id) {
+          Object.assign(item, payload);
+        }
+        return item;
+      });
 
     default:
       return state;

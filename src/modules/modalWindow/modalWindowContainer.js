@@ -29,10 +29,9 @@ class Modal extends Component {
   state = {};
 
   componentDidMount = () => {
-    const { fetchCurrentData, id } = this.props;
-    fetchCurrentData(id).then(res => {
-      this.setState({ ...res });
-    });
+    const { items, id } = this.props;
+    const currentItem = items.find(item => item.id === id);
+    this.setState({ ...currentItem });
     window.addEventListener('keydown', this.handleWindowKeyDown);
   };
 

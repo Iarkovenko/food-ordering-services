@@ -1,51 +1,40 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Loadable from 'react-loadable';
 
 import Nav from './Nav';
+import Loader from '../modules/loader/Loader';
 
 import routes from '../configs/routes';
 import navRoute from '../configs/main-nav';
 
-const MainPageAsync = Loadable({
-  loader: () => import('../pages/MainPage' /* webpackChunkName: "main-page" */),
-  loading() {
-    return <h1>Loading ...</h1>;
-  },
-});
+const MainPageAsync = lazy(() =>
+  import('../pages/MainPage' /* webpackChunkName: "main-page" */),
+);
 
-const MenuPageAsync = Loadable({
-  loader: () => import('../pages/MenuPage' /* webpackChunkName: "menu-page" */),
-  loading() {
-    return <h1>Loading ...</h1>;
-  },
-});
+const MenuPageAsync = lazy(() =>
+  import('../pages/MenuPage' /* webpackChunkName: "menu-page" */),
+);
 
-const ItemPageAsync = Loadable({
-  loader: () => import('../pages/ItemPage' /* webpackChunkName: "item-page" */),
-  loading() {
-    return <h1>Loading ...</h1>;
-  },
-});
+const ItemPageAsync = lazy(() =>
+  import('../pages/ItemPage' /* webpackChunkName: "item-page" */),
+);
 
-const AddPageAsync = Loadable({
-  loader: () =>
-    import('../pages/AddPage' /* webpackChunkName: "Add-item-page" */),
-  loading() {
-    return <h1>Loading ...</h1>;
-  },
-});
+const AddPageAsync = lazy(() =>
+  import('../pages/AddPage' /* webpackChunkName: "Add-item-page" */),
+);
 
 const App = () => (
   <>
-    <Nav routes={navRoute} />
-    <Switch>
-      <Route exact path={routes.MAIN} component={MainPageAsync} />
-      <Route exact path={routes.MENU} component={MenuPageAsync} />
-      <Route exact path={routes.ADD_ITEM_MENU} component={AddPageAsync} />
-      <Route exact path={routes.MENU_ITEM} component={ItemPageAsync} />
-      <Redirect to="/" />
-    </Switch>
+    <Suspense fallback={<Loader />}>
+      <Nav routes={navRoute} />
+      <Switch>
+        <Route exact path={routes.MAIN} component={MainPageAsync} />
+        <Route exact path={routes.MENU} component={MenuPageAsync} />
+        <Route exact path={routes.ADD_ITEM_MENU} component={AddPageAsync} />
+        <Route exact path={routes.MENU_ITEM} component={ItemPageAsync} />
+        <Redirect to="/" />
+      </Switch>
+    </Suspense>
   </>
 );
 
