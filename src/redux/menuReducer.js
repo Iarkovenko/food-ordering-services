@@ -12,7 +12,7 @@ function itemsReducer(state = [], { type, payload }) {
     case types.UPDATE_MENU_ITEM:
       return state.map(item => {
         if (item.id === payload.id) {
-          Object.assign(item, payload);
+          return payload;
         }
         return item;
       });
