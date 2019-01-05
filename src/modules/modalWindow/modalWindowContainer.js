@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 
@@ -87,7 +88,7 @@ class Modal extends Component {
         <div style={styles.modal}>
           <form onSubmit={this.handleUpdateItem}>
             <h1>Редактировать меню</h1>
-            <p>Имя</p>
+            <label>Имя</label>
             <input
               onChange={this.handleChange}
               value={name}
@@ -96,6 +97,7 @@ class Modal extends Component {
               placeholder="Name"
               required
             />
+            <label>Описание</label>
             <textarea
               onChange={this.handleChange}
               value={description}
@@ -103,6 +105,7 @@ class Modal extends Component {
               placeholder="Description"
               required
             />
+            <label>Категории</label>
             <select
               onChange={this.handleChange}
               value={category}
@@ -114,6 +117,7 @@ class Modal extends Component {
                 </option>
               ))}
             </select>
+            <label>Ссылка на картинку</label>
             <input
               onChange={this.handleChange}
               value={image}
@@ -122,6 +126,7 @@ class Modal extends Component {
               placeholder="img link"
               required
             />
+            <label>Цена</label>
             <input
               onChange={this.handleChange}
               value={price}

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 
 const AddItemView = ({
@@ -12,6 +13,7 @@ const AddItemView = ({
 }) => (
   <>
     <form onSubmit={handlePostItem}>
+      <label>Имя</label>
       <input
         onChange={handleChange}
         value={name}
@@ -20,6 +22,7 @@ const AddItemView = ({
         placeholder="Name"
         required
       />
+      <label>Описание</label>
       <textarea
         onChange={handleChange}
         value={description}
@@ -27,6 +30,7 @@ const AddItemView = ({
         placeholder="Description"
         required
       />
+      <label>Категория</label>
       <select onChange={handleChange} value={category} name="category">
         {options.map(o => (
           <option key={o.id} value={o.name}>
@@ -34,6 +38,7 @@ const AddItemView = ({
           </option>
         ))}
       </select>
+      <label>Ссылку изображения</label>
       <input
         onChange={handleChange}
         value={image}
@@ -42,6 +47,7 @@ const AddItemView = ({
         placeholder="img link"
         required
       />
+      <label>Цена</label>
       <input
         onChange={handleChange}
         value={price}

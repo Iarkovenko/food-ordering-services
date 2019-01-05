@@ -1,4 +1,0 @@
-diff a/src/redux/menuReducer.js b/src/redux/menuReducer.js	(rejected hunks)
-@@ -13 +13 @@ function itemsReducer(state = [], { type, payload }) {
--      return state.map(item => {        
-+      return state.map(item => {
