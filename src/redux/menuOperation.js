@@ -9,12 +9,6 @@ const fetchMenuCategories = () => dispatch => {
   API.getCategories().then(data => dispatch(actions.fetchCategories(data)));
 };
 
-const fetchMenuItemsBySelected = category => dispatch => {
-  API.getMenuItemsWithCategory(category).then(data =>
-    dispatch(actions.fetchMenu(data)),
-  );
-};
-
 const handleDeleteItemById = id => dispatch => {
   API.deleteMenuItem(id).then(res => {
     if (res.status !== 200) return;
@@ -27,7 +21,6 @@ const toogleModalWindow = () => dispatch => {
 };
 
 const fetchDataForModalWindow = id => () => API.getMenuItemById(id);
-// wirite action for success fetch
 
 const updateDataOfMenuItem = item => dispatch =>
   API.patchMenuItem(item).then(res => {
@@ -38,7 +31,6 @@ const updateDataOfMenuItem = item => dispatch =>
 export default {
   fetchMenuItems,
   fetchMenuCategories,
-  fetchMenuItemsBySelected,
   handleDeleteItemById,
   fetchDataForModalWindow,
   toogleModalWindow,

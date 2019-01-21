@@ -8,7 +8,10 @@ import SelectedForm from './selectorFormView';
 import ModalWindow from '../../modalWindow/modalWindowContainer';
 
 import menuOperation from '../../../redux/menuOperation';
-import actions from '../../../redux/menuActions';
+import menuActions from '../../../redux/menuActions';
+import cartActions from '../../../redux/cartActions';
+
+import { menuItemsByFilter } from '../../../redux/selectors';
 
 const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
@@ -17,11 +20,7 @@ class MenuPage extends Component {
   state = {};
 
   componentDidMount() {
-    const {
-      fetchMenuItems,
-      fetchMenuCategories,
-      fetchMenuItemsBySelected,
-    } = this.props;
+    const { fetchMenuItems, fetchMenuCategories, changeFilter } = this.props;
 
     fetchMenuCategories();
 
@@ -30,20 +29,15 @@ class MenuPage extends Component {
     if (!category) {
       return fetchMenuItems();
     }
-    return fetchMenuItemsBySelected(category);
+    return changeFilter(category) && fetchMenuItems();
   }
 
   componentDidUpdate(prevProps) {
-    const { fetchMenuItems, fetchMenuItemsBySelected, filter } = this.props;
+    const { filter, items } = this.props;
 
     if (prevProps.filter === filter) return;
-
-    if (!filter) {
-      fetchMenuItems();
-    }
-    if (filter) {
-      fetchMenuItemsBySelected(filter);
-    }
+    // eslint-disable-next-line consistent-return
+    return items;
   }
 
   handleCategoryChange = category => {
@@ -75,6 +69,11 @@ class MenuPage extends Component {
     switchModalWindow();
   };
 
+  handleAddToCart = id => {
+    const { addingToCart } = this.props;
+    addingToCart(id);
+  };
+
   render() {
     const { match, location, items, categories, isModalOpen } = this.props;
     const currentCategory = getCategoryFromProps(this.props);
@@ -92,6 +91,7 @@ class MenuPage extends Component {
           location={location}
           handleDelete={this.handleDeleteItem}
           handleEditItem={this.handleOpenModal}
+          handleAddToCart={this.handleAddToCart}
         />
         {isModalOpen && <ModalWindow {...this.props} {...this.state} />}
       </>
@@ -99,15 +99,19 @@ class MenuPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({ ...state });
+const mapStateToProps = state => ({
+  items: menuItemsByFilter(state),
+  categories: state.categories,
+  isModalOpen: state.isModalOpen,
+});
 
 const mapDispatchToProps = {
   fetchMenuItems: menuOperation.fetchMenuItems,
   fetchMenuCategories: menuOperation.fetchMenuCategories,
-  fetchMenuItemsBySelected: menuOperation.fetchMenuItemsBySelected,
-  changeFilter: actions.changeFilter,
+  changeFilter: menuActions.changeFilter,
   handleDelete: menuOperation.handleDeleteItemById,
   switchModalWindow: menuOperation.toogleModalWindow,
+  addingToCart: cartActions.addToCart,
 };
 
 export default connect(

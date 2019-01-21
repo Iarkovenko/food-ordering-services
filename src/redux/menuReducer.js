@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import types from './actionTypes';
+import cartReducer from './cartReducer';
 
 function itemsReducer(state = [], { type, payload }) {
   switch (type) {
@@ -52,9 +53,12 @@ function toogleModalWindow(state = false, { type }) {
   }
 }
 
+// function addToCart(state)
+
 export default combineReducers({
   items: itemsReducer,
   categories: categoriesReducer,
   filter: filterReducer,
   isModalOpen: toogleModalWindow,
+  cart: cartReducer,
 });

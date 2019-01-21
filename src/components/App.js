@@ -1,11 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import Nav from './Nav';
+import Header from '../modules/header/header';
 import Loader from '../modules/loader/Loader';
 
 import routes from '../configs/routes';
-import navRoute from '../configs/main-nav';
 
 const MainPageAsync = lazy(() =>
   import('../pages/MainPage' /* webpackChunkName: "main-page" */),
@@ -23,15 +22,25 @@ const AddPageAsync = lazy(() =>
   import('../pages/AddPage' /* webpackChunkName: "Add-item-page" */),
 );
 
+const UserCartAsync = lazy(() =>
+  import('../pages/UserCartPage' /* webpackChunkName: "UserCart-page" */),
+);
+
+const UserAccountAsync = lazy(() =>
+  import('../pages/AccountPage' /* webpackChunkName: "UserAccount-page" */),
+);
+
 const App = () => (
   <>
     <Suspense fallback={<Loader />}>
-      <Nav routes={navRoute} />
+      <Header />
       <Switch>
         <Route exact path={routes.MAIN} component={MainPageAsync} />
         <Route exact path={routes.MENU} component={MenuPageAsync} />
         <Route exact path={routes.ADD_ITEM_MENU} component={AddPageAsync} />
         <Route exact path={routes.MENU_ITEM} component={ItemPageAsync} />
+        <Route exact path={routes.CART} component={UserCartAsync} />
+        <Route exact path={routes.ACCOUNT} component={UserAccountAsync} />
         <Redirect to="/" />
       </Switch>
     </Suspense>

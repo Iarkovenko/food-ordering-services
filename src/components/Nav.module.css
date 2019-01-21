@@ -1,0 +1,22 @@
+.listStyle {
+  list-style: none;
+  display: flex;
+}
+
+.listStyle a {
+  text-decoration: none;
+}
+
+.link {
+  padding: 4px 8px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ee0a0a;
+}
+
+.link:active {
+  color: green;
+}
+.link:hover {
+  color: rgb(17, 0, 255);
+}

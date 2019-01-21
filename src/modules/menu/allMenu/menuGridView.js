@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const MenuList = ({ items, match, location, handleDelete, handleEditItem }) => (
+import s from './Item.module.css';
+
+const MenuList = ({
+  items,
+  match,
+  location,
+  handleDelete,
+  handleEditItem,
+  handleAddToCart,
+}) => (
   <>
     <Link
       exact
@@ -13,9 +22,9 @@ const MenuList = ({ items, match, location, handleDelete, handleEditItem }) => (
       Добавить Новый
     </Link>
 
-    <ul>
+    <div className={s.containerMenu}>
       {items.map(({ id, name, image, price, category }) => (
-        <li key={id}>
+        <div key={id} className={s.cartBlock}>
           <Link
             to={{
               pathname: `${match.url}/${id}`,
@@ -35,10 +44,13 @@ const MenuList = ({ items, match, location, handleDelete, handleEditItem }) => (
             <button type="button" onClick={() => handleDelete(id)}>
               Удалить
             </button>
+            <button type="button" onClick={() => handleAddToCart(id)}>
+              Добавить в корзину
+            </button>
           </p>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   </>
 );
 
