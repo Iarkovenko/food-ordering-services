@@ -37,7 +37,8 @@ function filterReducer(state = null, { type, payload }) {
   switch (type) {
     case types.CHANGE_FILTER:
       return payload;
-
+    case types.RESET_FILTER:
+      return null;
     default:
       return state;
   }
@@ -53,12 +54,24 @@ function toogleModalWindow(state = false, { type }) {
   }
 }
 
+function searchFilterReducer(state = '', { type, payload }) {
+  switch (type) {
+    case types.CHANGE_SEARCH_FILTER:
+      return payload;
+    case types.RESET_FILTER:
+      return '';
+    default:
+      return state;
+  }
+}
+
 // function addToCart(state)
 
 export default combineReducers({
   items: itemsReducer,
   categories: categoriesReducer,
   filter: filterReducer,
+  searchFilter: searchFilterReducer,
   isModalOpen: toogleModalWindow,
   cart: cartReducer,
 });

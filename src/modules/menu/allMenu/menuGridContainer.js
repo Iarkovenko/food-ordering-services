@@ -4,7 +4,9 @@ import queryString from 'query-string';
 import { connect } from 'react-redux';
 
 import MenuList from './menuGridView';
-import SelectedForm from './selectorFormView';
+// import SelectedForm from './selectorFormView';
+// import Searcher from './SearcherByName';
+import FilterFormContainer from './FilterFormContainer';
 import ModalWindow from '../../modalWindow/modalWindowContainer';
 
 import menuOperation from '../../../redux/menuOperation';
@@ -20,24 +22,32 @@ class MenuPage extends Component {
   state = {};
 
   componentDidMount() {
-    const { fetchMenuItems, fetchMenuCategories, changeFilter } = this.props;
+    const {
+      fetchMenuItems,
+      fetchMenuCategories,
+      fetchMenuItemsBySelected,
+    } = this.props;
 
     fetchMenuCategories();
 
     const category = getCategoryFromProps(this.props);
-
     if (!category) {
       return fetchMenuItems();
     }
-    return changeFilter(category) && fetchMenuItems();
+    return fetchMenuItemsBySelected(category);
   }
 
   componentDidUpdate(prevProps) {
-    const { filter, items } = this.props;
+    const { fetchMenuItems, fetchMenuItemsBySelected, filter } = this.props;
 
     if (prevProps.filter === filter) return;
-    // eslint-disable-next-line consistent-return
-    return items;
+
+    if (!filter) {
+      fetchMenuItems();
+    }
+    if (filter) {
+      fetchMenuItemsBySelected(filter);
+    }
   }
 
   handleCategoryChange = category => {
@@ -51,11 +61,17 @@ class MenuPage extends Component {
 
   handleResetFilter = e => {
     e.preventDefault();
-    const { history, location, changeFilter } = this.props;
-    changeFilter(null);
+    const { history, location, resetFilter } = this.props;
+    resetFilter();
+
     return history.replace({
       pathname: location.pathname,
     });
+  };
+
+  handleChangeText = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   };
 
   handleDeleteItem = id => {
@@ -75,15 +91,25 @@ class MenuPage extends Component {
   };
 
   render() {
-    const { match, location, items, categories, isModalOpen } = this.props;
+    const {
+      match,
+      location,
+      items,
+      categories,
+      isModalOpen,
+      changeSearchFilter,
+      searchFilterText,
+    } = this.props;
     const currentCategory = getCategoryFromProps(this.props);
     return (
       <>
-        <SelectedForm
+        <FilterFormContainer
           options={categories}
           value={currentCategory}
           onChange={this.handleCategoryChange}
           onSubmit={this.handleResetFilter}
+          changeSearchFilter={changeSearchFilter}
+          valueText={searchFilterText}
         />
         <MenuList
           items={items}
@@ -103,6 +129,8 @@ const mapStateToProps = state => ({
   items: menuItemsByFilter(state),
   categories: state.categories,
   isModalOpen: state.isModalOpen,
+  filter: state.filter,
+  searchFilterText: state.searchFilter,
 });
 
 const mapDispatchToProps = {
@@ -112,6 +140,9 @@ const mapDispatchToProps = {
   handleDelete: menuOperation.handleDeleteItemById,
   switchModalWindow: menuOperation.toogleModalWindow,
   addingToCart: cartActions.addToCart,
+  fetchMenuItemsBySelected: menuOperation.fetchMenuItemsBySelected,
+  changeSearchFilter: menuOperation.changeSearchFilter,
+  resetFilter: menuOperation.resetFilter,
 };
 
 export default connect(

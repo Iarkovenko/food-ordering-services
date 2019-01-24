@@ -1,14 +1,16 @@
 import { createSelector } from 'reselect';
 
-export const getMenuItems = state => state.items;
+const getMenuItems = state => state.items;
 
-export const filterSelector = state => state.filter;
+export const filterSelector = state => state.searchFilter;
 
 export const menuItemsByFilter = createSelector(
   [getMenuItems, filterSelector],
   (items, filter) => {
-    if (filter) {
-      return items.filter(item => item.category === filter);
+    if (filter !== '') {
+      return items.filter(item =>
+        item.name.toLowerCase().includes(filter.toLowerCase()),
+      );
     }
     return items;
   },

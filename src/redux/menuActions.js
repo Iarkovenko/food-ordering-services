@@ -29,10 +29,21 @@ const updateItem = item => ({
   payload: item,
 });
 
+const changeSearchFilter = text => ({
+  type: types.CHANGE_SEARCH_FILTER,
+  payload: text,
+});
+
+const resetFilter = () => ({
+  type: types.RESET_FILTER,
+});
+
 export default {
   fetchMenu,
   fetchCategories,
   changeFilter,
+  changeSearchFilter,
+  resetFilter,
   deleteItem,
   toogleModalFlag,
   updateItem,

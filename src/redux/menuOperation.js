@@ -28,6 +28,20 @@ const updateDataOfMenuItem = item => dispatch =>
     return res;
   });
 
+const fetchMenuItemsBySelected = category => dispatch => {
+  API.getMenuItemsWithCategory(category).then(data =>
+    dispatch(actions.fetchMenu(data)),
+  );
+};
+
+const changeSearchFilter = text => dispatch => {
+  dispatch(actions.changeSearchFilter(text));
+};
+
+const resetFilter = () => dispatch => {
+  dispatch(actions.resetFilter());
+};
+
 export default {
   fetchMenuItems,
   fetchMenuCategories,
@@ -35,4 +49,7 @@ export default {
   fetchDataForModalWindow,
   toogleModalWindow,
   updateDataOfMenuItem,
+  fetchMenuItemsBySelected,
+  changeSearchFilter,
+  resetFilter,
 };
