@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import types from './actionTypes';
+
 import cartReducer from './cartReducer';
+import entityReducer from './entityReducer';
 
 function itemsReducer(state = [], { type, payload }) {
   switch (type) {
     case types.FETCH_REQUEST_MENU:
-      return payload;
+      return Object.keys(payload);
 
     case types.DELETE_ITEM:
       return state.filter(item => item.id !== payload);
@@ -26,7 +28,7 @@ function itemsReducer(state = [], { type, payload }) {
 function categoriesReducer(state = [], { type, payload }) {
   switch (type) {
     case types.FETCH_REQUEST_CATEGORIES:
-      return payload;
+      return Object.keys(payload);
 
     default:
       return state;
@@ -74,4 +76,5 @@ export default combineReducers({
   searchFilter: searchFilterReducer,
   isModalOpen: toogleModalWindow,
   cart: cartReducer,
+  entity: entityReducer,
 });

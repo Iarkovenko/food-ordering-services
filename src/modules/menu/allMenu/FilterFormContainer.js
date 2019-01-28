@@ -15,7 +15,9 @@ class SearcherForm extends Component {
       <form onSubmit={onSubmit}>
         <select value={value} onChange={e => onChange(e.target.value)}>
           {options.map(o => (
-            <option value={o.name}>{o.name}</option>
+            <option key={o.id} value={o.name}>
+              {o.name}
+            </option>
           ))}
         </select>
         <br />

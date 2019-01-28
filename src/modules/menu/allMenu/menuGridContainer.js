@@ -13,7 +13,7 @@ import menuOperation from '../../../redux/menuOperation';
 import menuActions from '../../../redux/menuActions';
 import cartActions from '../../../redux/cartActions';
 
-import { menuItemsByFilter } from '../../../redux/selectors';
+import { getCategories, menuItemsByFilter } from '../../../redux/selectors';
 
 const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
@@ -61,9 +61,9 @@ class MenuPage extends Component {
 
   handleResetFilter = e => {
     e.preventDefault();
-    const { history, location, resetFilter } = this.props;
+    const { history, location, resetFilter, fetchMenuItems } = this.props;
     resetFilter();
-
+    fetchMenuItems();
     return history.replace({
       pathname: location.pathname,
     });
@@ -127,7 +127,7 @@ class MenuPage extends Component {
 
 const mapStateToProps = state => ({
   items: menuItemsByFilter(state),
-  categories: state.categories,
+  categories: getCategories(state),
   isModalOpen: state.isModalOpen,
   filter: state.filter,
   searchFilterText: state.searchFilter,

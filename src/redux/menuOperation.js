@@ -1,12 +1,18 @@
 import * as API from '../services/api';
 import actions from './menuActions';
 
-const fetchMenuItems = () => dispatch => {
-  API.getAllMenuItems().then(data => dispatch(actions.fetchMenu(data)));
+const fetchMenuItems = () => (dispatch, getState) => {
+  API.getAllMenuItems().then(data => {
+    dispatch(actions.fetchMenuItems(data));
+    dispatch(actions.fetchMenu(getState().entity.menuItems));
+  });
 };
 
-const fetchMenuCategories = () => dispatch => {
-  API.getCategories().then(data => dispatch(actions.fetchCategories(data)));
+const fetchMenuCategories = () => (dispatch, getState) => {
+  API.getCategories().then(data => {
+    dispatch(actions.fetchCategoriesItems(data));
+    dispatch(actions.fetchCategories(getState().entity.categories));
+  });
 };
 
 const handleDeleteItemById = id => dispatch => {
@@ -28,10 +34,11 @@ const updateDataOfMenuItem = item => dispatch =>
     return res;
   });
 
-const fetchMenuItemsBySelected = category => dispatch => {
-  API.getMenuItemsWithCategory(category).then(data =>
-    dispatch(actions.fetchMenu(data)),
-  );
+const fetchMenuItemsBySelected = category => (dispatch, getState) => {
+  API.getMenuItemsWithCategory(category).then(data => {
+    dispatch(actions.fetchMenuItems(data));
+    dispatch(actions.fetchMenu(getState().entity.menuItems));
+  });
 };
 
 const changeSearchFilter = text => dispatch => {
