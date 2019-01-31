@@ -18,10 +18,6 @@ const ItemPageAsync = lazy(() =>
   import('../pages/ItemPage' /* webpackChunkName: "item-page" */),
 );
 
-const AddPageAsync = lazy(() =>
-  import('../pages/AddPage' /* webpackChunkName: "Add-item-page" */),
-);
-
 const UserCartAsync = lazy(() =>
   import('../pages/UserCartPage' /* webpackChunkName: "UserCart-page" */),
 );
@@ -37,7 +33,6 @@ const App = () => (
       <Switch>
         <Route exact path={routes.MAIN} component={MainPageAsync} />
         <Route exact path={routes.MENU} component={MenuPageAsync} />
-        <Route exact path={routes.ADD_ITEM_MENU} component={AddPageAsync} />
         <Route exact path={routes.MENU_ITEM} component={ItemPageAsync} />
         <Route exact path={routes.CART} component={UserCartAsync} />
         <Route exact path={routes.ACCOUNT} component={UserAccountAsync} />

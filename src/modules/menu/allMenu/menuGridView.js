@@ -3,25 +3,8 @@ import { Link } from 'react-router-dom';
 
 import s from './Item.module.css';
 
-const MenuList = ({
-  items,
-  match,
-  location,
-  handleDelete,
-  handleEditItem,
-  handleAddToCart,
-}) => (
+const MenuList = ({ items, match, location, handleAddToCart }) => (
   <>
-    <Link
-      exact
-      to={{
-        pathname: `${match.url}/add`,
-        state: { from: location },
-      }}
-    >
-      Добавить Новый
-    </Link>
-
     <div className={s.containerMenu}>
       {items.map(({ id, name, image, price, category }) => (
         <div key={id} className={s.cartBlock}>
@@ -38,12 +21,6 @@ const MenuList = ({
             <b>{price} UAH</b>
           </p>
           <p>
-            <button type="button" onClick={() => handleEditItem(id)}>
-              Изменить
-            </button>
-            <button type="button" onClick={() => handleDelete(id)}>
-              Удалить
-            </button>
             <button type="button" onClick={() => handleAddToCart(id)}>
               Добавить в корзину
             </button>

@@ -4,21 +4,10 @@ import types from './actionTypes';
 import cartReducer from './cartReducer';
 import entityReducer from './entityReducer';
 
-function itemsReducer(state = [], { type, payload }) {
+function menuItemsReducer(state = [], { type, payload }) {
   switch (type) {
     case types.FETCH_REQUEST_MENU:
-      return Object.keys(payload);
-
-    case types.DELETE_ITEM:
-      return state.filter(item => item.id !== payload);
-
-    case types.UPDATE_MENU_ITEM:
-      return state.map(item => {
-        if (item.id === payload.id) {
-          return payload;
-        }
-        return item;
-      });
+      return payload.ids.menuItems;
 
     default:
       return state;
@@ -28,28 +17,7 @@ function itemsReducer(state = [], { type, payload }) {
 function categoriesReducer(state = [], { type, payload }) {
   switch (type) {
     case types.FETCH_REQUEST_CATEGORIES:
-      return Object.keys(payload);
-
-    default:
-      return state;
-  }
-}
-
-function filterReducer(state = null, { type, payload }) {
-  switch (type) {
-    case types.CHANGE_FILTER:
-      return payload;
-    case types.RESET_FILTER:
-      return null;
-    default:
-      return state;
-  }
-}
-
-function toogleModalWindow(state = false, { type }) {
-  switch (type) {
-    case types.OPEN_MODAL_FLAG:
-      return !state;
+      return payload.ids.categories;
 
     default:
       return state;
@@ -70,11 +38,9 @@ function searchFilterReducer(state = '', { type, payload }) {
 // function addToCart(state)
 
 export default combineReducers({
-  items: itemsReducer,
-  categories: categoriesReducer,
-  filter: filterReducer,
+  itemsID: menuItemsReducer,
+  categoriesID: categoriesReducer,
   searchFilter: searchFilterReducer,
-  isModalOpen: toogleModalWindow,
   cart: cartReducer,
-  entity: entityReducer,
+  entities: entityReducer,
 });

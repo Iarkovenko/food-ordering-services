@@ -4,34 +4,47 @@ import types from './actionTypes';
 
 import * as schemas from './schemas/schemas';
 
-const fetchMenu = items => ({
-  type: types.FETCH_REQUEST_MENU,
-  payload: items,
+const fetchRequestStart = () => ({
+  type: types.FETCH_REQUEST_START,
 });
 
-const fetchCategories = items => ({
-  type: types.FETCH_REQUEST_CATEGORIES,
-  payload: items,
+const fetchRequestSuccess = () => ({
+  type: types.FETCH_REQUEST_SUCCESS,
 });
 
-const changeFilter = option => ({
-  type: types.CHANGE_FILTER,
-  payload: option,
+const fetchRequestError = () => ({
+  type: types.FETCH_REQUEST_ERROR,
 });
 
-const deleteItem = id => ({
-  type: types.DELETE_ITEM,
-  payload: id,
-});
+const fetchAllMenu = menuItems => {
+  const normalizedPosts = normalize(menuItems, [schemas.MenuItemsSchema]);
 
-const toogleModalFlag = () => ({
-  type: types.OPEN_MODAL_FLAG,
-});
+  return {
+    type: types.FETCH_REQUEST_MENU,
+    payload: {
+      ids: {
+        menuItems: Object.keys(normalizedPosts.entities.menuItems),
+      },
+      entities: normalizedPosts.entities,
+    },
+  };
+};
 
-const updateItem = item => ({
-  type: types.UPDATE_MENU_ITEM,
-  payload: item,
-});
+const fetchAllCategories = categories => {
+  const normalizedCategories = normalize(categories, [
+    schemas.CategoriesMenuItemsSchema,
+  ]);
+
+  return {
+    type: types.FETCH_REQUEST_CATEGORIES,
+    payload: {
+      ids: {
+        categories: Object.keys(normalizedCategories.entities.categories),
+      },
+      entities: normalizedCategories.entities,
+    },
+  };
+};
 
 const changeSearchFilter = text => ({
   type: types.CHANGE_SEARCH_FILTER,
@@ -42,45 +55,12 @@ const resetFilter = () => ({
   type: types.RESET_FILTER,
 });
 
-const fetchMenuItems = menuItems => {
-  const normalizedPosts = normalize(menuItems, [schemas.MenuItemsSchema]);
-  console.log(normalizedPosts.entities.menuItems);
-  return {
-    type: 'FETCH_FOR_ENTITIES_ITEMS',
-    payload: {
-      ids: {
-        menuItems: Object.keys(normalizedPosts.entities.menuItems),
-      },
-      entities: normalizedPosts.entities,
-    },
-  };
-};
-
-const fetchCategoriesItems = categories => {
-  const normalizedCategories = normalize(categories, [
-    schemas.CategoriesMenuItemsSchema,
-  ]);
-
-  return {
-    type: 'FETCH_FOR_ENTITIES_CATEGORIES',
-    payload: {
-      ids: {
-        category: Object.keys(normalizedCategories.entities.categories),
-      },
-      entities: normalizedCategories.entities,
-    },
-  };
-};
-
 export default {
-  fetchMenu,
-  fetchMenuItems,
-  fetchCategories,
-  fetchCategoriesItems,
-  changeFilter,
+  fetchRequestStart,
+  fetchRequestSuccess,
+  fetchRequestError,
+  fetchAllMenu,
+  fetchAllCategories,
   changeSearchFilter,
   resetFilter,
-  deleteItem,
-  toogleModalFlag,
-  updateItem,
 };

@@ -4,7 +4,7 @@ export default function entityReducer(state = {}, action) {
 
     Object.keys(action.payload.entities).forEach(entityKey => {
       newState[entityKey] = {
-        ...state[entityKey],
+        // ...state[entityKey],
         ...action.payload.entities[entityKey],
       };
     });

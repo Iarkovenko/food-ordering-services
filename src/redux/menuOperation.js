@@ -1,44 +1,34 @@
 import * as API from '../services/api';
 import actions from './menuActions';
 
-const fetchMenuItems = () => (dispatch, getState) => {
-  API.getAllMenuItems().then(data => {
-    dispatch(actions.fetchMenuItems(data));
-    dispatch(actions.fetchMenu(getState().entity.menuItems));
-  });
+const fetchAllMenu = () => dispatch => {
+  API.getAllMenuItems()
+    .then(data => {
+      dispatch(actions.fetchRequestStart());
+      dispatch(actions.fetchAllMenu(data));
+      dispatch(actions.fetchRequestSuccess());
+    })
+    .catch(() => dispatch(actions.fetchRequestError()));
 };
 
-const fetchMenuCategories = () => (dispatch, getState) => {
-  API.getCategories().then(data => {
-    dispatch(actions.fetchCategoriesItems(data));
-    dispatch(actions.fetchCategories(getState().entity.categories));
-  });
+const fetchAllMenuCategories = () => dispatch => {
+  API.getCategories()
+    .then(data => {
+      dispatch(actions.fetchRequestStart());
+      dispatch(actions.fetchAllCategories(data));
+      dispatch(actions.fetchRequestSuccess());
+    })
+    .catch(() => dispatch(actions.fetchRequestError()));
 };
 
-const handleDeleteItemById = id => dispatch => {
-  API.deleteMenuItem(id).then(res => {
-    if (res.status !== 200) return;
-    dispatch(actions.deleteItem(id));
-  });
-};
-
-const toogleModalWindow = () => dispatch => {
-  dispatch(actions.toogleModalFlag());
-};
-
-const fetchDataForModalWindow = id => () => API.getMenuItemById(id);
-
-const updateDataOfMenuItem = item => dispatch =>
-  API.patchMenuItem(item).then(res => {
-    dispatch(actions.updateItem(item));
-    return res;
-  });
-
-const fetchMenuItemsBySelected = category => (dispatch, getState) => {
-  API.getMenuItemsWithCategory(category).then(data => {
-    dispatch(actions.fetchMenuItems(data));
-    dispatch(actions.fetchMenu(getState().entity.menuItems));
-  });
+const fetchMenuItemsBySelected = category => dispatch => {
+  API.getMenuItemsWithCategory(category)
+    .then(data => {
+      dispatch(actions.fetchRequestStart());
+      dispatch(actions.fetchAllMenu(data));
+      dispatch(actions.fetchRequestSuccess());
+    })
+    .catch(() => dispatch(actions.fetchRequestError()));
 };
 
 const changeSearchFilter = text => dispatch => {
@@ -50,12 +40,8 @@ const resetFilter = () => dispatch => {
 };
 
 export default {
-  fetchMenuItems,
-  fetchMenuCategories,
-  handleDeleteItemById,
-  fetchDataForModalWindow,
-  toogleModalWindow,
-  updateDataOfMenuItem,
+  fetchAllMenu,
+  fetchAllMenuCategories,
   fetchMenuItemsBySelected,
   changeSearchFilter,
   resetFilter,
