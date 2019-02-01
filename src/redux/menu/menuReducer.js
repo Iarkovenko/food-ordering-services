@@ -1,8 +1,4 @@
-import { combineReducers } from 'redux';
-import types from './actionTypes';
-
-import cartReducer from './cartReducer';
-import entityReducer from './entityReducer';
+import types from '../actionTypes';
 
 function menuItemsReducer(state = [], { type, payload }) {
   switch (type) {
@@ -37,10 +33,8 @@ function searchFilterReducer(state = '', { type, payload }) {
 
 // function addToCart(state)
 
-export default combineReducers({
-  itemsID: menuItemsReducer,
-  categoriesID: categoriesReducer,
-  searchFilter: searchFilterReducer,
-  cart: cartReducer,
-  entities: entityReducer,
-});
+export default {
+  menuItemsReducer,
+  categoriesReducer,
+  searchFilterReducer,
+};

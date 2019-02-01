@@ -1,8 +1,8 @@
 import { normalize } from 'normalizr';
 
-import types from './actionTypes';
+import types from '../actionTypes';
 
-import * as schemas from './schemas/schemas';
+import * as schemas from '../schemas/schemas';
 
 const fetchRequestStart = () => ({
   type: types.FETCH_REQUEST_START,

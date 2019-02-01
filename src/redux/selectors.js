@@ -8,6 +8,8 @@ export const filterSelector = state => state.searchFilter;
 
 const getMenuItemsIds = state => state.itemsID;
 const getCategoriesIds = state => state.categoriesID;
+const getCartItemsIds = state => state.cart.items;
+const getAmountItem = state => state.cart.amount;
 
 export const getCategories = createSelector(
   [getCategoriesIds, getCategoriesEntities],
@@ -24,4 +26,13 @@ export const menuItemsByFilter = createSelector(
     }
     return ids.map(id => entities[id]);
   },
+);
+
+export const menuItemsCart = createSelector(
+  [getCartItemsIds, getMenuItemsEntities, getAmountItem],
+  (ids, entities, amount) =>
+    ids.map(id => ({
+      ...entities[id],
+      amount: amount[id],
+    })),
 );

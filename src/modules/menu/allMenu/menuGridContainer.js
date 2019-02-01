@@ -7,8 +7,8 @@ import MenuList from './menuGridView';
 import FilterForm from './FilterFormContainer';
 import SelectForm from './SelectFormContainer';
 
-import menuOperation from '../../../redux/menuOperation';
-import cartActions from '../../../redux/cartActions';
+import menuOperation from '../../../redux/menu/menuOperation';
+import cartActions from '../../../redux/cart/cartActions';
 
 import { getCategories, menuItemsByFilter } from '../../../redux/selectors';
 
@@ -81,11 +81,6 @@ class MenuPage extends Component {
     changeSearchFilter(value);
   };
 
-  handleAddToCart = id => {
-    const { addingToCart } = this.props;
-    addingToCart(id);
-  };
-
   render() {
     const { match, location, items, categories, searchFilterText } = this.props;
 
@@ -107,7 +102,7 @@ class MenuPage extends Component {
           items={items}
           match={match}
           location={location}
-          handleAddToCart={this.handleAddToCart}
+          {...this.props}
         />
       </>
     );

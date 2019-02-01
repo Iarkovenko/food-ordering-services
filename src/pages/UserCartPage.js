@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ViewCart from '../modules/cart/cartView';
+import Cart from '../modules/cart/СartContainer';
 
-const CartPage = () => <ViewCart />;
+const CartPage = () => <Cart />;
 
 export default CartPage;

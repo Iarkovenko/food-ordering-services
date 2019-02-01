@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import s from './Item.module.css';
 
-const MenuList = ({ items, match, location, handleAddToCart }) => (
+const MenuList = ({ items, match, location, addingToCart }) => (
   <>
     <div className={s.containerMenu}>
       {items.map(({ id, name, image, price, category }) => (
@@ -21,7 +21,7 @@ const MenuList = ({ items, match, location, handleAddToCart }) => (
             <b>{price} UAH</b>
           </p>
           <p>
-            <button type="button" onClick={() => handleAddToCart(id)}>
+            <button type="button" onClick={() => addingToCart(id)}>
               Добавить в корзину
             </button>
           </p>
