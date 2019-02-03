@@ -1,5 +1,7 @@
 import React from 'react';
 
+const Total = (price, amount) => price * amount;
+
 const CartView = ({
   products = [],
   removeItemFromCart,
@@ -9,7 +11,7 @@ const CartView = ({
   products.length > 0 ? (
     <div>
       <ul>
-        {products.map(({ id, name, image, amount }) => (
+        {products.map(({ id, name, price, image, amount }) => (
           <li key={id}>
             <h3>{name}</h3>
             <img src={image} width="100" height="100" alt="menuItemPhoto" />
@@ -21,6 +23,13 @@ const CartView = ({
               <button type="button" onClick={() => decreaseCount(id)}>
                 -
               </button>
+            </div>
+            <div>
+              <p>
+                Price:
+                <span>{Total(price, amount)}</span>
+                UAH
+              </p>
             </div>
             <div>
               <button type="button" onClick={() => removeItemFromCart(id)}>

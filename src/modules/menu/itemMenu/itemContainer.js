@@ -68,7 +68,11 @@ class ItemPage extends Component {
         }}
         goBackToList={this.handlegoBackToList}
       >
-        <CommentForm addComment={this.addCommentToItem} value={comment} />
+        <CommentForm
+          addComment={this.addCommentToItem}
+          value={comment}
+          comments={[]}
+        />
       </MenuItem>
     );
   }

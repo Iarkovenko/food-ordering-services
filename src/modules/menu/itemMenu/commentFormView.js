@@ -1,8 +1,8 @@
 import React from 'react';
 
-const CommentForm = ({ addComment, handleChange, value }) => (
+const CommentForm = ({ comments = [], addComment, handleChange, value }) => (
   <>
-    <p>Dont have commetns</p>
+    {comments.length > 0 ? <h1>have comments</h1> : <p>Dont have commetns</p>}
 
     <form onSubmit={addComment}>
       <textarea name="commentArea" onChange={handleChange} value={value} />
